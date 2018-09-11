@@ -44,7 +44,6 @@ win_task:
   windows_container:
     image: casmlang/container.windows
     os_version: 2016
-    cpu: 4
   matrix:
     env:
       B: "debug"
