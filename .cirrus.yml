@@ -40,73 +40,7 @@
 #   statement from your version.
 #
 
-coverage_task:
-  container:
-    image: casmlang/container.linux
-    memory: 2
-    cpu: 1
-  matrix:
-    env:
-      B: "coverage"
-      C: "gcc"
-      CODECOV_TOKEN: ENCRYPTED[ceee7eaf47c0a284df935aa88ebe2d2eacdcaab15160711793efd9526a013d7a8003eb8820f7b2bd5d6e005cdacaec97]
-  fetch_script:
-    - .ci/script.sh fetch
-  build_script:
-    - .ci/script.sh build
-  test_script:
-    - .ci/script.sh test
-
-linux_task:
-  depends_on: coverage
-  container:
-    image: casmlang/container.linux
-    memory: 2
-    cpu: 1
-  matrix:
-    env:
-      B: "debug"
-      C: "clang"
-    env:
-      B: "sanitize"
-      C: "clang"
-    env:
-      B: "release"
-      C: "clang"
-    env:
-      B: "release"
-      C: "gcc"
-  fetch_script:
-    - .ci/script.sh fetch
-  build_script:
-    - .ci/script.sh build
-  test_script:
-    - .ci/script.sh test
-  benchmark_script:
-    - .ci/script.sh benchmark
-
-mac_task:
-  depends_on: coverage
-  osx_instance:
-    image: high-sierra-xcode-9.4.1
-  matrix:
-    env:
-      B: "debug"
-      C: "clang"
-    env:
-      B: "debug"
-      C: "gcc"
-  fetch_script:
-    - .ci/script.sh fetch
-  build_script:
-    - .ci/script.sh build
-  test_script:
-    - .ci/script.sh test
-  benchmark_script:
-    - .ci/script.sh benchmark
-
 win_task:
-  depends_on: coverage
   windows_container:
     image: casmlang/container.windows
     os_version: 2016
